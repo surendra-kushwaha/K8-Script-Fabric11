@@ -11,9 +11,8 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  nfs:
-    server: 9.55.36.83
-    path: /var/icpstorage/kipvol1
+  hostPath:
+    path: "/network"
 
 ---
 kind: PersistentVolume
@@ -28,9 +27,8 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  nfs:
-    server: 9.55.36.83
-    path: /var/icpstorage/kipvol2
+  hostPath:
+    path: "/composer"
 
 ---
 kind: PersistentVolumeClaim

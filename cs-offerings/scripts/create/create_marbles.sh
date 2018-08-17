@@ -1,8 +1,4 @@
 #!/bin/bash
-
-echo "[### kip ###] 'create_marbles.sh' script not yet updated for Fabric 1.1, exiting."
-exit
-
 if [ "${PWD##*/}" == "create" ]; then
     KUBECONFIG_FOLDER=${PWD}/../../kube-configs
 elif [ "${PWD##*/}" == "scripts" ]; then

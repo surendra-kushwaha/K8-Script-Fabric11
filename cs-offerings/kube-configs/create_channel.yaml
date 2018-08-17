@@ -16,7 +16,7 @@ spec:
     command: ["sh", "-c", "cd /shared && pwd && ls && configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ${CHANNEL_NAME}.tx -channelID ${CHANNEL_NAME} && touch /shared/status_channeltx_complete "]
     env:
     - name: CHANNEL_NAME
-      value: channel1
+      value: DoesntMatter
     - name: FABRIC_CFG_PATH
       value: /shared
     - name: GODEBUG
@@ -31,7 +31,7 @@ spec:
     command: ["sh", "-c", "while [ ! -f /shared/status_channeltx_complete ]; do echo Waiting for channeltx; sleep 2; done; peer channel create -o ${ORDERER_URL} -c ${CHANNEL_NAME} -f /shared/${CHANNEL_NAME}.tx && rm /shared/status_channeltx_complete && touch /shared/status_channelcreate_complete"]
     env:
     - name: CHANNEL_NAME
-      value: channel1
+      value: DoesntMatter
     - name: ORDERER_URL
       value: blockchain-orderer:31010
     - name: CORE_PEER_ADDRESSAUTODETECT
@@ -41,8 +41,7 @@ spec:
     - name: CORE_PEER_LOCALMSPID
       value: Org1MSP
     - name: CORE_PEER_MSPCONFIGPATH
-      # Assumes org1 peer.
-      value: /shared/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+      value: /shared/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/
     - name: CORE_LOGGING_LEVEL
       value: debug
     - name: FABRIC_CFG_PATH

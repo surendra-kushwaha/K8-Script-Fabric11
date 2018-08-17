@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "[### kip ###] 'chaincode_install.sh' script not yet updated for Fabric 1.1, exiting."
-exit
-
 if [ "${PWD##*/}" == "create" ]; then
     KUBECONFIG_FOLDER=${PWD}/../../kube-configs
 elif [ "${PWD##*/}" == "scripts" ]; then
@@ -63,15 +60,15 @@ echo "Creating chaincodeinstall pod"
 echo "Running: kubectl create -f ${KUBECONFIG_FOLDER}/chaincode_install.yaml"
 kubectl create -f ${KUBECONFIG_FOLDER}/chaincode_install.yaml
 
-while [ "$(kubectl get pod -a chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" != "Completed" ]; do
+while [ "$(kubectl get pod chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" != "Completed" ]; do
     echo "Waiting for chaincodeinstall container to be Completed"
     sleep 1;
 done
 
-if [ "$(kubectl get pod -a chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" == "Completed" ]; then
+if [ "$(kubectl get pod chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" == "Completed" ]; then
 	echo "Install Chaincode Completed Successfully"
 fi
 
-if [ "$(kubectl get pod -a chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" != "Completed" ]; then
+if [ "$(kubectl get pod chaincodeinstall | grep chaincodeinstall | awk '{print $3}')" != "Completed" ]; then
 	echo "Install Chaincode Failed"
 fi
